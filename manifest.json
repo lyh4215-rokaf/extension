@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "My First Chrome Extension",
+  "name": "Simple Memo",
   "version": "1.0",
-  "description": "This is my first simple Chrome extension!",
+  "description": "A simple Chrome extension memo pad.",
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_popup": "popup.html"
   },
   "permissions": ["storage"]
 }

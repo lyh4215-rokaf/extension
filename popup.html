@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Memo</title>
+  <style>
+    body {
+      width: 250px;
+      font-family: sans-serif;
+      padding: 10px;
+      margin: 0;
+    }
+    h3 {
+      margin-top: 0;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      box-sizing: border-box;
+      font-size: 14px;
+      resize: none;
+    }
+    p {
+      font-size: 12px;
+      color: gray;
+      margin-top: 4px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <h3>My Memo</h3>
+  <textarea id="memo" placeholder="Write something..."></textarea>
+  <p id="status">💾 Auto-saving...</p>
+
+  <script>
+    const textarea = document.getElementById("memo");
+    const status = document.getElementById("status");
+
+    // 🔹 확장 저장소에서 메모 불러오기
+    chrome.storage.local.get("memoText", (data) => {
+      if (data.memoText) textarea.value = data.memoText;
+    });
+
+    // 🔹 입력할 때마다 자동 저장
+    textarea.addEventListener("input", () => {
+      const text = textarea.value;
+      chrome.storage.local.set({ memoText: text });
+      status.textContent = "✅ Saved!";
+      setTimeout(() => (status.textContent = "💾 Auto-saving..."), 1500);
+    });
+  </script>
+</body>
+</html>
